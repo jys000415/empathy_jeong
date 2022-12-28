@@ -1,0 +1,75 @@
+%YAML 1.1
+---
+SessionParameters: 
+    session_type: 'Recall'
+    baseline: 300
+    avg_isi: 120
+    std_isi: 15
+    cs_duration: 30
+    cs_ids: !!python/tuple [0, 1, 2]
+    cs_repeats: !!python/tuple [5, 5, 5]
+    shock_duration: 1.0
+    shock_id: null
+    shock: false
+    laser: false
+    laser_addl_duration: 10
+    random: false
+    order: [0, 1, 2, 2, 0, 1, 0, 2, 1, 1, 0, 2, 2, 1, 0]
+    timing: 
+        - 300.4998991
+        - 436.6895711
+        - 597.0397279
+        - 750.2760260
+        - 907.2738256
+        - 1056.167889 
+        - 1224.079655
+        - 1376.490765
+        - 1524.934646
+        - 1708.890522
+        - 1863.417793
+        - 2014.260564
+        - 2164.452870
+        - 2338.403161
+        - 2488.783633
+tests:
+    input:
+        freezing:
+            test0:
+                - !!python/tuple [  0,  50,   0] # Cue 0 : (Pre, Cue, Post)
+                - !!python/tuple [  0,  50,   0] # Cue 1 : (Pre, Cue, Post)
+                - !!python/tuple [  0,  50,   0] # Cue 2 : (Pre, Cue, Post)
+            test1:
+                - !!python/tuple [ 50,  50,   0] # Cue 0 : (Pre, Cue, Post)
+                - !!python/tuple [100, 100,   0] # Cue 1 : (Pre, Cue, Post)
+                - !!python/tuple [  0,  50,   0] # Cue 2 : (Pre, Cue, Post)
+            test2:
+                - !!python/tuple [ 25,  50,   0] # Cue 0 : (Pre, Cue, Post)
+                - !!python/tuple [ 25,  75,   0] # Cue 1 : (Pre, Cue, Post)
+                - !!python/tuple [  0,  25,   0] # Cue 2 : (Pre, Cue, Post)
+            test3:
+                - !!python/tuple [ 10,  35,  50] # Cue 0 : (Pre, Cue, Post)
+                - !!python/tuple [ 10,  35, 100] # Cue 1 : (Pre, Cue, Post)
+                - !!python/tuple [ 10,  35, 100] # Cue 2 : (Pre, Cue, Post)
+    output:
+        freezing:
+            test0:
+                - !!python/tuple [ 50,  50,  50] # No Normalization     : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [ 50,  50,  50] # Pre Normalization    : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [  1,  1,    1] # Sclaed Normalization : (Cue 0, Cue 1, Cue 2)
+            test1:
+                - !!python/tuple [ 50, 100,  50] # No Normalization     : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [  0,   0,  50] # Pre Normalization    : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [  1,   2,   1] # Sclaed Normalization : (Cue 0, Cue 1, Cue 2)
+            test2:
+                - !!python/tuple [ 50,  75,  25] # No Normalization     : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [ 25,  50,  25] # Pre Normalization    : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [  1, 1.5, 0.5] # Sclaed Normalization : (Cue 0, Cue 1, Cue 2)
+            test3:
+                - !!python/tuple [ 35,  35,  35] # No Normalization     : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [ 25,  25,  25] # Pre Normalization    : (Cue 0, Cue 1, Cue 2)
+                - !!python/tuple [  1,   1,   1] # Sclaed Normalization : (Cue 0, Cue 1, Cue 2)
+retype:
+    !!python/tuple ['SessionParameters','timing']:
+        'np.array'
+iters: 5
+path: '../tests/tmp/'
